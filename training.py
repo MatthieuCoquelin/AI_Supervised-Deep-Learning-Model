@@ -63,7 +63,7 @@ def NeuralNetwork_TrainTest(X_train, y_train, X_test, y_test, hidden_layers, lea
             TrainLoss.append(L(y_train, activations_train['A' + str(C)]))
             y_pred = Predict(X_train, parameters)
             TrainAcc.append(accuracy_score(y_train.flatten(), y_pred.flatten()))
-
+            
             #test
             TestLoss.append(L(y_test, activations_test['A' + str(C)]))
             y_pred = Predict(X_test, parameters)
