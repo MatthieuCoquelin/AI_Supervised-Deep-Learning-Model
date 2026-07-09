@@ -7,16 +7,26 @@ import plotly.graph_objects as go
 ##########################################################
 
 
-#def DisplayIA(TrainLoss, TrainAcc, TestLoss, TestAcc):
-def DisplayIA(TrainLoss, TrainAcc):
+def DisplayIA_Train(TrainLoss, TrainAcc):
     plt.figure(figsize = (14, 4))
     plt.subplot(1, 2, 1)
     plt.plot(TrainLoss, label='train loss')
-    # plt.plot(TestLoss, label='test loss')
     plt.legend()
     plt.subplot(1, 2, 2)
     plt.plot(TrainAcc, label='train acc')
-    # plt.plot(TestAcc, label='test acc')
+    plt.legend()
+    plt.show()  
+
+
+def DisplayIA_TrainTest(TrainLoss, TrainAcc, TestLoss, TestAcc):
+    plt.figure(figsize = (14, 4))
+    plt.subplot(1, 2, 1)
+    plt.plot(TrainLoss, label='train loss')
+    plt.plot(TestLoss, label='test loss')
+    plt.legend()
+    plt.subplot(1, 2, 2)
+    plt.plot(TrainAcc, label='train acc')
+    plt.plot(TestAcc, label='test acc')
     plt.legend()
     plt.show()  
 
