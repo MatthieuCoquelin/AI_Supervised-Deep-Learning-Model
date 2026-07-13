@@ -1,4 +1,5 @@
 import numpy as np
+import tensorflow as tf
 from sklearn.metrics import log_loss
 
 ##########################################################
@@ -47,6 +48,7 @@ def BackPropagation(activations, y, X, parameters):
             dZ = np.dot(parameters['W' + str(c)].T, dZ) * activations['A' + str(c - 1)] * (1 - activations['A' + str(c - 1)])
 
     return gradients
+
 
 def Update(gradients, parameters, learning_rate):
     size = int(len(gradients) / 2) + 1
