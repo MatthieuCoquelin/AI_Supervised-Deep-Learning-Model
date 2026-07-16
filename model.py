@@ -129,3 +129,42 @@ def Optimized_Update(gradients, parameters, learning_rate, adamParameters, t):
     return parameters
 
 
+##########################################################
+#                    ADAM_W OPTIMIZER                    #
+##########################################################
+
+
+def W_Optimized_Update(gradients, parameters, learning_rate, adamParameters, t):
+    size = int(len(gradients) / 2) + 1
+    beta1 = 0.9
+    beta2 = 0.999
+    weight_decay = 0.01
+    epsilon=1e-8
+
+    for i in range(1, size):
+        dWi = gradients['dW' + str(i)]
+        dbi = gradients['db' + str(i)]
+        Wi = parameters['W' + str(i)]
+        bi = parameters['b' + str(i)]
+        V_Wi = adamParameters['V_w' + str(i)]
+        M_Wi = adamParameters['M_w' + str(i)]
+        V_bi = adamParameters['V_b' + str(i)]
+        M_bi = adamParameters['M_b' + str(i)]
+        
+        M_Wi = beta1 * M_Wi + (1 - beta1) * dWi
+        V_Wi = beta2 * V_Wi + (1 - beta2) * np.square(dWi)
+        M_W_hat = M_Wi / (1 - beta1 ** t + 1)
+        V_W_hat = V_Wi / (1 - beta2 ** t + 1)
+        Wi -= learning_rate * (M_W_hat / (np.sqrt(V_W_hat) + epsilon) + weight_decay * Wi)
+        
+        M_bi = beta1 * M_bi + (1 - beta1) * dbi
+        V_bi = beta2 * V_bi + (1 - beta2) * np.square(dbi)
+        M_b_hat = M_bi / (1 - beta1 ** t + 1)
+        V_b_hat = V_bi / (1 - beta2 ** t + 1)
+        bi -= learning_rate * (M_b_hat / (np.sqrt(V_b_hat) + epsilon) + weight_decay * bi)
+
+        parameters['W' + str(i)] = Wi
+        parameters['b' + str(i)] = bi
+
+    return parameters
+

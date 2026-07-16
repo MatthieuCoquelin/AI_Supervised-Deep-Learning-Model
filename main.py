@@ -1,7 +1,7 @@
 from utilities import load_data, load_tensorFlow_dataset, Dataset_To_GrayScale, Resize_Dataset, Convert_TensorFlow_To_Numpy
 from sklearn.datasets import make_circles
 from sklearn.model_selection import train_test_split
-from training import NeuralNetwork_TrainTest, Optimized_NeuralNetwork_TrainTest
+from training import NeuralNetwork_TrainTest, Optimized_NeuralNetwork_TrainTest, W_Optimized_NeuralNetwork_TrainTest
 from visualisation import DisplayPictures
 
 if __name__ == "__main__":
@@ -31,7 +31,7 @@ if __name__ == "__main__":
             y_train = y_train.T
             y_test = y_test.T
         
-            NeuralNetwork_TrainTest(X_train, y_train, X_test, y_test, N, learning_rate=0.01, num_iterations=10000)
+            NeuralNetwork_TrainTest(X_train, y_train, X_test, y_test, N, learning_rate=0.001, num_iterations=10000)
             # Optimized_NeuralNetwork_TrainTest(X_train, y_train, X_test, y_test, N, learning_rate=0.001, num_iterations=10000)
         case "TensorFlow_Dataset":
             X_train, y_train, X_test, y_test = load_tensorFlow_dataset("horses_or_humans")
@@ -45,8 +45,8 @@ if __name__ == "__main__":
             X_test = X_test.reshape(X_test.shape[1] * X_test.shape[2], X_test.shape[0]) / 255
             y_test = y_test.reshape(1, y_test.shape[0])
 
-            NeuralNetwork_TrainTest(X_train, y_train, X_test, y_test, N, learning_rate=0.001, num_iterations=10000)
-            # Optimized_NeuralNetwork_TrainTest(X_train, y_train, X_test, y_test, N, learning_rate=0.001, num_iterations=10000)
+            # NeuralNetwork_TrainTest(X_train, y_train, X_test, y_test, N, learning_rate=0.001, num_iterations=10000)
+            W_Optimized_NeuralNetwork_TrainTest(X_train, y_train, X_test, y_test, N, learning_rate=0.001, num_iterations=10000)
         case _:
             print("Invalid input")
     
