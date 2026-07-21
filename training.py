@@ -1,4 +1,4 @@
-from visualisation import DisplayIA_Train, DisplayIA_TrainTest
+from visualisation import DisplayIA_TrainTest
 from model import *
 from sklearn.metrics import accuracy_score
 from tqdm import tqdm
@@ -82,9 +82,9 @@ def Optimized_NeuralNetwork_TrainTest(X_train, y_train, X_test, y_test, hidden_l
             y_pred = Predict(X_test, parameters)
             TestAcc.append(accuracy_score(y_test.flatten(), y_pred.flatten()))
 
-
+    
     DisplayIA_TrainTest(TrainLoss, TrainAcc, TestLoss, TestAcc)
-    return parameters
+    return parameters, y_pred
 
 
 ##########################################################

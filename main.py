@@ -2,27 +2,29 @@ from utilities import load_data, load_tensorFlow_dataset, Dataset_To_GrayScale, 
 from sklearn.datasets import make_circles
 from sklearn.model_selection import train_test_split
 from training import NeuralNetwork_TrainTest, Optimized_NeuralNetwork_TrainTest, W_Optimized_NeuralNetwork_TrainTest
-from visualisation import DisplayPictures
+from visualisation import DisplayPictures, DisplayCircles, DrawPlot
 
 if __name__ == "__main__":
 
     N = (32, 32, 32)
 
     launcherList = ["Circles", "Local_Dataset", "TensorFlow_Dataset"]
-    selection = launcherList[1]
+    selection = launcherList[0]
 
     match selection:
         case "Circles":
-            X, y = make_circles(n_samples=2000, noise=0.1, factor=0.2, random_state=0)
-            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state = 0)
+            X, y = make_circles(n_samples=1000, noise=0.03, random_state=0)
+            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state = 0)
 
             X_train = X_train.T
             y_train = y_train.reshape(1, y_train.shape[0])
             X_test = X_test.T
             y_test = y_test.reshape(1, y_test.shape[0])
 
-            Optimized_NeuralNetwork_TrainTest(X_train, y_train, X_test, y_test, N, learning_rate=0.001, num_iterations=10000)
+            parameters, y_pred = Optimized_NeuralNetwork_TrainTest(X_train, y_train, X_test, y_test, N, learning_rate=0.001, num_iterations=10000)
             # NeuralNetwork_Train(X, y, N, learning_rate=0.1, num_iterations=1000)
+            plt = DisplayCircles(X, y, y_pred)
+            DrawPlot(plt)
         case "Local_Dataset":
             X_train, y_train, X_test, y_test = load_data()
             
